@@ -61,12 +61,12 @@ class Personnage{
     System.out.println("le deplacement");
     String dep = scanner.nextLine();
     char carac = dep.charAt(0);
-    while(dep != "Quitter"){
+    while(carac != 'p'){
+        carac = dep.charAt(0);
         truc.deplacement(carac);
         System.out.println("le deplacement");
         dep = scanner.nextLine();
-        carac = dep.charAt(0);
     }
-    
+
   }
 }

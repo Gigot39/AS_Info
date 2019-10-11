@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.IOException;
 class Personnage{
   int x;
   int y;
@@ -7,9 +8,16 @@ class Personnage{
     this.x = 3;
     this.y = 3;
   }
+
+  public static void clearScreen() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+  }
+
   public void afficherPerso(){
-    for (int abcisse = 1 ; abcisse < 6 ; abcisse ++){
-      for(int ordonnee = 1; ordonnee < 6; ordonnee ++){
+    this.clearScreen();
+    for (int ordonnee = 1 ; ordonnee < 6 ; ordonnee ++){
+      for(int abcisse = 1; abcisse < 6; abcisse ++){
         if(abcisse == this.x && ordonnee == this.y){
           System.out.print("*");
         }
@@ -20,30 +28,31 @@ class Personnage{
       System.out.println();
     }
   }
-  public void deplacement(String a){
-      System.out.println(a == "haut");
-    if(a == "haut"){
-      if(this.y - 1 > -1){
+
+  public void deplacement(char a){
+    if(a == 'z'){
+      if(this.y - 1 > 0){
         this.y --;
       }
     }
-    if(a == "gauche"){
-      if(this.x - 1 > -1){
+    if(a == 'q'){
+      if(this.x - 1 > 0){
         this.x --;
       }
     }
-    if(a == "droite"){
-      if(this.x + 1 < 5){
-        this.x ++;
+    if(a == 's'){
+      if(this.y + 1 < 6){
+        this.y ++;
       }
     }
-    if(a == "bas"){
-      if(this.y + 1 < 5){
-        this.y ++;
+    if(a == 'd'){
+      if(this.x + 1 < 6){
+        this.x ++;
       }
     }
     this.afficherPerso();
   }
+
   public static void main (String[] args){
     Scanner scanner = new Scanner( System.in );
     Personnage truc = new Personnage();
@@ -51,12 +60,13 @@ class Personnage{
 
     System.out.println("le deplacement");
     String dep = scanner.nextLine();
-
+    char carac = dep.charAt(0);
     while(dep != "Quitter"){
-        truc.deplacement(dep);
+        truc.deplacement(carac);
         System.out.println("le deplacement");
         dep = scanner.nextLine();
+        carac = dep.charAt(0);
     }
-
+    
   }
 }

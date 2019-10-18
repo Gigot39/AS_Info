@@ -1,56 +1,46 @@
 import java.util.Scanner;
 import java.io.IOException;
-
 class Personnage{
-  private int x;
-  private int y;
-  private String style;
-  private String nom;
+  int x;
+  int y;
+  String nom;
+  String style;
 
   public Personnage(){
     this.x = 3;
     this.y = 3;
     this.nom = "Conan";
-    this.style = "Barbare";
+    this.style = "barbare";
   }
-  public Personnage(String nom, String style){
+  public Personnage(String Nom, String Style){
     this.x = 3;
     this.y = 3;
-    if( nom != ""){
-        this.nom = nom;
-    }
-    if(style != ""){
-      this.style = style;
-    }
+    this.nom = Nom;
+    this.style = Style;
   }
 
-  public void changerStyle(String x){
-    if(x != null){
-      this.style = x;
+  public changerStyle(String a){
+    if(a != null){
+      this.style = a;
     }
   }
-
+  /*
   public String toString(){
-    return "( x="+ this.x+", y="+this.y+", nom="+this.nom+", style="+this.style+")";
+    String res[] = {Integer.toString(this.x),Integer.toString(this.y),this.nom,this.style};
+    return res[];
   }
+  */
 
   public static void clearScreen() {
+    if (System.getProperty("os.name").charAt(0) == 'W'){
 
-    char caractere  = System.getProperty("os.name").charAt(0);
-    if(caractere == 'W'){
-      //runtime.getRuntime().exec("cls");
-      for(int i = 0; i < 30; i++){
-        System.out.println();
-      }
-      //Runtime runtime = Runtime.getRuntime();
-      //String[] args = { "cmd.exe", "cls" };
-      //final Process process = runtime.exec(args);
     }
     else{
       System.out.print("\033[H\033[2J");
       System.out.flush();
     }
   }
+
 
   public void afficherPerso(){
     this.clearScreen();
@@ -66,6 +56,7 @@ class Personnage{
       System.out.println();
     }
   }
+
 
   public void deplacement(char a){
     if(a == 'z'){
@@ -90,22 +81,22 @@ class Personnage{
     }
     this.afficherPerso();
   }
-  public static void main (String[] args){
 
+
+  public static void main (String[] args){
     Scanner scanner = new Scanner( System.in );
     Personnage truc = new Personnage();
-    System.out.print(truc.toString());
     truc.afficherPerso();
 
     System.out.println("le deplacement");
     String dep = scanner.nextLine();
-    char carac = 'm';
-
+    char carac;
     try{
       carac = dep.charAt(0);
     }
-    catch(Exception e){truc.afficherPerso();}
-
+    catch(Exception e){
+      carac = 'm';
+    }
     while(carac != 'p'){
       try{
         carac = dep.charAt(0);
@@ -114,9 +105,9 @@ class Personnage{
         dep = scanner.nextLine();
       }
       catch(Exception e){
+        truc.afficherPerso();
         System.out.println("le deplacement");
         dep = scanner.nextLine();
-        truc.afficherPerso();
       }
     }
   }
